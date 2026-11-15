@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Club Laguna Azul</title>
+<meta name="description" content="Club Laguna Azul – Un día diferente para disfrutar en familia. Agenda tu visita por WhatsApp.">
+<meta name="theme-color" content="#174F68">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --azul:#174F68; --turquesa:#35A9B5; --verde:#79A95B; --amarillo:#F2BD50;
+  --blanco:#FFF8EA; --agua:#E8F1EC; --texto:#1d2f38; --suave:#55707c;
+  --radio:14px; --sombra:0 6px 20px rgba(23,79,104,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Nunito Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--blanco);color:var(--texto);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px}
+svg.i{width:24px;height:24px;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* Header */
+.topbar{position:sticky;top:0;z-index:20;background:rgba(23,79,104,.96);color:#fff;backdrop-filter:blur(6px)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;letter-spacing:.06em;font-size:15px;text-decoration:none}
+.logo span{width:30px;height:30px;border-radius:50%;background:var(--turquesa);display:grid;place-items:center}
+.logo svg{width:18px;height:18px;stroke:#fff}
+.topbar a.mini{font-size:14px;font-weight:700;text-decoration:none;background:var(--amarillo);color:var(--azul);padding:8px 14px;border-radius:999px}
+
+.hero{position:relative;min-height:78vh;display:flex;align-items:flex-end;color:#fff;overflow:hidden}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 60%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,79,104,.15) 0%,rgba(23,79,104,.35) 45%,rgba(16,55,73,.92) 100%)}
+.hero .wrap{position:relative;z-index:1;padding-bottom:36px;padding-top:120px}
+.eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.18);padding:6px 12px;border-radius:999px}
+.eyebrow svg{width:16px;height:16px}
+.hero h1{font-size:clamp(34px,9vw,54px);line-height:1.05;font-weight:800;letter-spacing:.02em;margin:14px 0 8px}
+.hero p.lead{font-size:20px;font-weight:600;max-width:30ch}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:12px 22px;border-radius:12px;border:0;font:inherit;font-weight:800;font-size:17px;cursor:pointer;text-decoration:none;transition:transform .12s,box-shadow .12s}
+.btn:active{transform:scale(.98)}
+.btn-sol{background:var(--amarillo);color:var(--azul);box-shadow:0 6px 18px rgba(242,189,80,.35)}
+.btn-azul{background:var(--azul);color:#fff}
+.btn-wa{background:#1f9d55;color:#fff}
+.btn-linea{background:#fff;color:var(--azul);border:2px solid var(--azul)}
+.hero .btn{margin-top:22px;width:100%;max-width:340px}
+
+/* Secciones */
+section{padding:44px 0;scroll-margin-top:56px}
+.tarjetas .tarjeta:last-child{grid-column:1/-1}
+.tarjetas .tarjeta:last-child .ilus{aspect-ratio:auto;height:110px}
+.titulo{font-size:26px;line-height:1.2;font-weight:800;color:var(--azul);margin-bottom:6px}
+.sub{color:var(--suave);margin-bottom:22px}
+
+/* Menú de acciones */
+#planifica{background:var(--agua);border-radius:28px 28px 0 0;margin-top:-24px;position:relative;z-index:2}
+.acciones{display:grid;gap:12px}
+.accion{display:flex;align-items:center;gap:14px;width:100%;min-height:72px;padding:14px 16px;background:#fff;border:2px solid transparent;border-radius:var(--radio);box-shadow:var(--sombra);font:inherit;text-align:left;cursor:pointer;color:var(--texto)}
+.accion:hover,.accion:focus-visible{border-color:var(--turquesa);outline:none}
+.accion .ico{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;flex:none}
+.accion strong{display:block;font-size:18px;color:var(--azul)}
+.accion small{color:var(--suave);font-size:14px}
+.accion .flecha{margin-left:auto;color:var(--turquesa)}
+.c1{background:#dff2f4;color:var(--turquesa)} .c2{background:#e6f0de;color:var(--verde)} .c3{background:#fcf0d4;color:#b9861c}
+
+/* Formularios */
+.panel{display:none;background:#fff;border-radius:var(--radio);box-shadow:var(--sombra);padding:20px}
+.panel.activo{display:block;animation:entra .25s ease}
+@keyframes entra{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.volver{display:inline-flex;align-items:center;gap:6px;background:none;border:0;font:inherit;font-weight:700;color:var(--turquesa);cursor:pointer;min-height:44px;padding:0;margin-bottom:6px}
+.panel h3{font-size:22px;color:var(--azul);margin-bottom:14px}
+.campo{margin-bottom:16px}
+.campo label,.campo .lbl{display:block;font-weight:700;font-size:15px;margin-bottom:6px}
+.campo .opc{font-weight:400;color:var(--suave)}
+input,select,textarea{width:100%;min-height:50px;padding:12px 14px;border:1.5px solid #c9d7d2;border-radius:10px;font:inherit;font-size:17px;color:var(--texto);background:#fbfdfc;-webkit-appearance:none;appearance:none}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23174F68' stroke-width='2.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:40px}
+textarea{min-height:90px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--turquesa);box-shadow:0 0 0 3px rgba(53,169,181,.2)}
+.campo.error input,.campo.error select{border-color:#c0392b}
+.msg-err{display:none;color:#b03a2e;font-size:14px;margin-top:5px;font-weight:600}
+.campo.error .msg-err{display:block}
+.ayuda{font-size:14px;color:var(--suave);margin-top:5px}
+.si-no{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.si-no input{position:absolute;opacity:0;pointer-events:none}
+.si-no label{display:flex;align-items:center;justify-content:center;min-height:50px;border:1.5px solid #c9d7d2;border-radius:10px;font-weight:700;cursor:pointer;margin:0}
+.si-no input:checked+label{background:var(--azul);border-color:var(--azul);color:#fff}
+.si-no input:focus-visible+label{box-shadow:0 0 0 3px rgba(53,169,181,.35)}
+.aviso{display:flex;gap:10px;background:#fcf3dc;border-left:4px solid var(--amarillo);border-radius:10px;padding:12px 14px;font-size:15px;margin:4px 0 18px}
+.aviso svg{color:#b9861c;width:22px;height:22px}
+.aviso-rojo{background:#fdecea;border-left-color:#c0392b}
+.aviso-rojo svg{color:#c0392b}
+
+/* Confirmación */
+.listo{display:none;text-align:center;padding:8px 0}
+.listo.activo{display:block;animation:entra .25s ease}
+.listo .check{width:68px;height:68px;border-radius:50%;background:#dff4e7;color:#1f9d55;display:grid;place-items:center;margin:0 auto 12px}
+.listo .check svg{width:36px;height:36px;stroke-width:2.5}
+.listo h3{margin-bottom:6px}
+.listo p{color:var(--suave);margin-bottom:16px}
+.resumen{text-align:left;background:var(--agua);border-radius:10px;padding:14px;font-size:15px;white-space:pre-line;margin-bottom:16px}
+.nota{font-size:14px;color:var(--suave);margin-top:12px}
+.listo .btn{width:100%;margin-top:10px}
+
+/* Conoce */
+.foto-grande{border-radius:var(--radio);overflow:hidden;box-shadow:var(--sombra);margin-bottom:16px}
+.foto-grande img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.tarjetas{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tarjeta{background:#fff;border-radius:var(--radio);box-shadow:var(--sombra);overflow:hidden}
+.tarjeta img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.tarjeta .ilus{aspect-ratio:4/3;display:grid;place-items:center}
+.tarjeta .ilus svg{width:46px;height:46px;stroke-width:1.6}
+.tarjeta div.txt{padding:12px}
+.tarjeta h4{font-size:16px;color:var(--azul);line-height:1.25}
+.tarjeta p{font-size:14px;color:var(--suave);margin-top:3px}
+.tarjeta.ancha{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr}
+.tarjeta.ancha img{height:100%;aspect-ratio:auto}
+.tag{display:inline-block;font-size:12px;font-weight:800;color:#9a3d2f;background:#fbe4df;padding:2px 8px;border-radius:999px;margin-top:6px}
+
+/* Antes de tu visita */
+#antes{background:#fff}
+.info{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dato{background:var(--agua);border-radius:var(--radio);padding:14px;display:flex;flex-direction:column;gap:8px}
+.dato svg{color:var(--azul)}
+.dato strong{font-size:15px;line-height:1.3}
+.cuidemos{margin-top:28px;border:2px solid var(--turquesa);border-radius:18px;overflow:hidden}
+.cuidemos header{background:var(--turquesa);color:#fff;padding:14px 18px;display:flex;align-items:center;gap:10px}
+.cuidemos header h3{font-size:20px}
+.prohibido{display:flex;gap:14px;align-items:center;background:#fdecea;border-bottom:1px solid #f4cfc9;padding:16px 18px}
+.prohibido .no{width:52px;height:52px;flex:none;border-radius:50%;background:#c0392b;color:#fff;display:grid;place-items:center}
+.prohibido .no svg{width:30px;height:30px}
+.prohibido strong{color:#8e2b20;font-size:17px;line-height:1.3}
+.reglas{list-style:none;padding:8px 18px 14px}
+.reglas li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px dashed #d6e3df;font-size:16px}
+.reglas li:last-child{border:0}
+.reglas svg{color:var(--turquesa);margin-top:1px}
+
+/* Ubicación */
+.mapa{background:linear-gradient(135deg,#dbeee9,#cfe6ee);border-radius:var(--radio);padding:22px;position:relative;overflow:hidden;margin-bottom:16px}
+.ruta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-weight:700;font-size:15px;color:var(--azul)}
+.ruta .p{background:#fff;padding:8px 12px;border-radius:999px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.ruta .p.dest{background:var(--azul);color:#fff}
+.ruta .linea{flex:1;min-width:16px;border-top:3px dashed var(--turquesa)}
+.dir{display:flex;gap:12px;align-items:flex-start;margin-top:18px;font-size:17px}
+.dir svg{color:#c0392b;width:28px;height:28px}
+
+footer{background:var(--azul);color:#e6f0f3;padding:34px 0 40px;font-size:15px}
+footer .priv{display:flex;gap:10px;background:rgba(255,255,255,.08);padding:14px;border-radius:12px;margin-bottom:22px}
+footer .cierre{font-size:19px;font-weight:700;color:#fff;line-height:1.35}
+footer .cierre b{color:var(--amarillo);letter-spacing:.04em}
+footer .tel{margin-top:14px}
+
+@media (min-width:760px){
+  .acciones{grid-template-columns:repeat(3,1fr)}
+  .accion{flex-direction:column;align-items:flex-start;min-height:150px}
+  .accion .flecha{display:none}
+  .tarjetas{grid-template-columns:repeat(3,1fr)}
+  .tarjetas .tarjeta:last-child{grid-column:auto}
+  .tarjetas .tarjeta:last-child .ilus{aspect-ratio:4/3;height:auto}
+  .info{grid-template-columns:repeat(4,1fr)}
+  .hero{min-height:82vh}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-ola" viewBox="0 0 24 24"><path d="M2 12c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2M2 17c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2M2 7c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M9 15l2 2 4-4"/></symbol>
+    <symbol id="i-ok" viewBox="0 0 24 24"><path d="M22 11.1V12a10 10 0 1 1-5.9-9.1"/><path d="M22 4 12 14l-3-3"/></symbol>
+    <symbol id="i-rep" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5M3 21v-5h5"/></symbol>
+    <symbol id="i-der" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-izq" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path d="M3 21l1.6-4.7A8.5 8.5 0 1 1 8 19.6L3 21Z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 1c-1-.4-2-1.4-2.4-2.4l1-1-1-2L9 9.5Z"/></symbol>
+    <symbol id="i-grupo" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></symbol>
+    <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+    <symbol id="i-auto" viewBox="0 0 24 24"><path d="M5 17H3v-5l2-5h14l2 5v5h-2"/><circle cx="7.5" cy="17" r="2"/><circle cx="16.5" cy="17" r="2"/><path d="M9.5 17h5M3 12h18"/></symbol>
+    <symbol id="i-cesta" viewBox="0 0 24 24"><path d="M5 11h14l-1.5 9h-11L5 11Z"/><path d="m9 11 3-7 3 7M3 11h18"/></symbol>
+    <symbol id="i-tienda" viewBox="0 0 24 24"><path d="M3 9l2-5h14l2 5M4 9v11h16V9M3 9h18"/><path d="M4 4l16 16"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></symbol>
+    <symbol id="i-escudo" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-noalc" viewBox="0 0 24 24"><path d="M8 3h8l-1 8a3 3 0 0 1-6 0L8 3ZM12 14v6M9 21h6"/><circle cx="12" cy="12" r="11"/><path d="m4.2 4.2 15.6 15.6"/></symbol>
+    <symbol id="i-vaso" viewBox="0 0 24 24"><path d="M6 3h12l-2 18H8L6 3Z"/><path d="M3 3l18 18"/></symbol>
+    <symbol id="i-hoja" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10Z"/><path d="M2 21c0-3 1.9-5.4 5.1-6"/></symbol>
+    <symbol id="i-basura" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M5 6l1 15h12l1-15"/><path d="M10 11v6M14 11v6"/></symbol>
+    <symbol id="i-nino" viewBox="0 0 24 24"><circle cx="8" cy="5" r="2.5"/><circle cx="17" cy="9" r="2"/><path d="M8 8v6m0 0-2 7m2-7 2 7M5 11h6M17 11v4m0 0-1.5 6m1.5-6 1.5 6M15 13h4"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-nav" viewBox="0 0 24 24"><path d="m3 11 19-9-9 19-2-8-8-2Z"/></symbol>
+    <symbol id="i-candado" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+    <symbol id="i-parrilla" viewBox="0 0 24 24"><path d="M4 10h16a8 8 0 0 1-16 0Z"/><path d="M8 18l-2 4M16 18l2 4M9 6c0-1 1-1 1-2s-1-1-1-2M13 6c0-1 1-1 1-2s-1-1-1-2M17 6c0-1 1-1 1-2s-1-1-1-2"/></symbol>
+    <symbol id="i-juego" viewBox="0 0 24 24"><path d="M4 22V8l8-6 8 6v14M4 22h16"/><path d="M12 12v10M9 16h6"/><circle cx="12" cy="9" r="1.5"/></symbol>
+    <symbol id="i-arbol" viewBox="0 0 24 24"><path d="M12 22v-6"/><path d="M12 2 6 10h3l-4 6h14l-4-6h3L12 2Z"/></symbol>
+    <symbol id="i-temp" viewBox="0 0 24 24"><path d="M14 14.8V4a2 2 0 1 0-4 0v10.8a4 4 0 1 0 4 0Z"/></symbol>
+  </defs>
+</svg>
+
+<header class="topbar">
+  <div class="wrap">
+    <a href="#inicio" class="logo"><span><svg class="i"><use href="#i-ola"/></svg></span>CLUB LAGUNA AZUL</a>
+    <a href="#planifica" class="mini">Reservar</a>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="inicio" style="padding:0">
+  <img src="img/piscina.jpg" alt="Vista aérea de la piscina del Club Laguna Azul rodeada de áreas verdes y toldos" fetchpriority="high">
+  <div class="wrap">
+    <span class="eyebrow"><svg class="i"><use href="#i-pin"/></svg>Trujillo · Panamericana Sur KM 553</span>
+    <h1>CLUB LAGUNA AZUL</h1>
+    <p class="lead">Un día diferente para disfrutar en familia</p>
+    <a class="btn btn-sol" href="#planifica">¡Planifica tu visita! <svg class="i"><use href="#i-der"/></svg></a>
+  </div>
+</section>
+
+<section id="planifica">
+  <div class="wrap">
+    <div id="menu">
+      <h2 class="titulo">¿Qué deseas hacer?</h2>
+      <p class="sub">Elige una opción. Te tomará menos de un minuto.</p>
+      <div class="acciones">
+        <button class="accion" data-abrir="agendar">
+          <span class="ico c1"><svg class="i"><use href="#i-cal"/></svg></span>
+          <span><strong>Agendar mi visita</strong><small>Consulta disponibilidad</small></span>
+          <svg class="i flecha"><use href="#i-der"/></svg>
+        </button>
+        <button class="accion" data-abrir="confirmar">
+          <span class="ico c2"><svg class="i"><use href="#i-ok"/></svg></span>
+          <span><strong>Confirmar mi reserva</strong><small>Verifica tu visita agendada</small></span>
+          <svg class="i flecha"><use href="#i-der"/></svg>
+        </button>
+        <button class="accion" data-abrir="reprogramar">
+          <span class="ico c3"><svg class="i"><use href="#i-rep"/></svg></span>
+          <span><strong>Reprogramar mi visita</strong><small>Solicita una nueva fecha</small></span>
+          <svg class="i flecha"><use href="#i-der"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- AGENDAR -->
+    <div class="panel" id="p-agendar">
+      <button class="volver" type="button" data-volver><svg class="i"><use href="#i-izq"/></svg>Volver al menú</button>
+      <form novalidate data-tipo="agendar">
+        <h3>Agendar mi visita</h3>
+        <div class="campo"><label for="a-nombre">Nombre y apellido del adulto responsable</label>
+          <input id="a-nombre" name="nombre" autocomplete="name" required maxlength="80">
+          <div class="msg-err">Escribe tu nombre y apellido.</div></div>
+        <div class="campo"><label for="a-wa">Número de WhatsApp</label>
+          <input id="a-wa" name="whatsapp" type="tel" inputmode="numeric" autocomplete="tel" placeholder="9 dígitos, ej. 9XX XXX XXX" required>
+          <div class="msg-err">Ingresa un número de celular válido (9 dígitos).</div></div>
+        <div class="campo"><label for="a-cant">Cantidad de visitantes</label>
+          <select id="a-cant" name="cantidad" required>
+            <option value="">Selecciona</option>
+            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <div class="ayuda">Máximo 5 personas por grupo.</div>
+          <div class="msg-err">Selecciona entre 1 y 5 visitantes.</div></div>
+        <div class="campo"><label for="a-fecha">Fecha preferida</label>
+          <input id="a-fecha" name="fecha" type="date" required data-futura>
+          <div class="msg-err">Elige una fecha a partir de hoy.</div></div>
+        <div class="campo"><label for="a-hora">Horario de visita</label>
+          <select id="a-hora" name="horario" required>
+            <option value="">Selecciona</option>
+            <option>Día completo (9:00 a. m. – 5:00 p. m.)</option>
+            <option>Mañana (9:00 a. m. – 1:00 p. m.)</option>
+            <option>Tarde (1:00 p. m. – 5:00 p. m.)</option>
+          </select>
+          <div class="msg-err">Selecciona un horario.</div></div>
+        <div class="campo"><span class="lbl">¿Es una visita familiar?</span>
+          <div class="si-no">
+            <input type="radio" id="a-fam-si" name="familiar" value="Sí" required><label for="a-fam-si">Sí</label>
+            <input type="radio" id="a-fam-no" name="familiar" value="No"><label for="a-fam-no">No</label>
+          </div>
+          <div class="msg-err">Elige una opción.</div></div>
+        <div class="campo"><label for="a-com">Comentario adicional <span class="opc">(opcional)</span></label>
+          <textarea id="a-com" name="comentario" maxlength="300"></textarea></div>
+        <div class="aviso"><svg class="i"><use href="#i-info"/></svg><span>La reserva queda pendiente hasta recibir la confirmación de disponibilidad.</span></div>
+        <button class="btn btn-azul" type="submit" style="width:100%">Preparar solicitud</button>
+      </form>
+      <div class="listo"></div>
+    </div>
+
+    <!-- CONFIRMAR -->
+    <div class="panel" id="p-confirmar">
+      <button class="volver" type="button" data-volver><svg class="i"><use href="#i-izq"/></svg>Volver al menú</button>
+      <form novalidate data-tipo="confirmar">
+        <h3>Confirmar mi reserva</h3>
+        <div class="campo"><label for="c-nombre">Nombre del adulto responsable</label>
+          <input id="c-nombre" name="nombre" autocomplete="name" required maxlength="80">
+          <div class="msg-err">Escribe tu nombre.</div></div>
+        <div class="campo"><label for="c-wa">Número de WhatsApp</label>
+          <input id="c-wa" name="whatsapp" type="tel" inputmode="numeric" autocomplete="tel" placeholder="9 dígitos, ej. 9XX XXX XXX" required>
+          <div class="msg-err">Ingresa un número de celular válido (9 dígitos).</div></div>
+        <div class="campo"><label for="c-fecha">Fecha de visita reservada</label>
+          <input id="c-fecha" name="fecha" type="date" required data-futura>
+          <div class="msg-err">Elige la fecha de tu visita (a partir de hoy).</div></div>
+        <div class="campo"><label for="c-cod">Código de reserva <span class="opc">(si lo tienes)</span></label>
+          <input id="c-cod" name="codigo" maxlength="30" autocapitalize="characters"></div>
+        <button class="btn btn-azul" type="submit" style="width:100%">Preparar consulta</button>
+      </form>
+      <div class="listo"></div>
+    </div>
+
+    <!-- REPROGRAMAR -->
+    <div class="panel" id="p-reprogramar">
+      <button class="volver" type="button" data-volver><svg class="i"><use href="#i-izq"/></svg>Volver al menú</button>
+      <form novalidate data-tipo="reprogramar">
+        <h3>Reprogramar mi visita</h3>
+        <div class="aviso aviso-rojo"><svg class="i"><use href="#i-reloj"/></svg><span><strong>Importante:</strong> la reprogramación debe solicitarse con un mínimo de <strong>24 horas de anticipación</strong> a la fecha reservada. Pasado ese plazo no es posible modificar la agenda.</span></div>
+        <div class="campo"><label for="r-nombre">Nombre del adulto responsable</label>
+          <input id="r-nombre" name="nombre" autocomplete="name" required maxlength="80">
+          <div class="msg-err">Escribe tu nombre.</div></div>
+        <div class="campo"><label for="r-wa">Número de WhatsApp</label>
+          <input id="r-wa" name="whatsapp" type="tel" inputmode="numeric" autocomplete="tel" placeholder="9 dígitos, ej. 9XX XXX XXX" required>
+          <div class="msg-err">Ingresa un número de celular válido (9 dígitos).</div></div>
+        <div class="campo"><label for="r-fecha">Fecha de visita reservada</label>
+          <input id="r-fecha" name="fecha" type="date" required>
+          <div class="msg-err" id="r-fecha-err">Indica la fecha que tenías reservada.</div></div>
+        <div class="campo"><label for="r-nueva">Nueva fecha preferida</label>
+          <input id="r-nueva" name="nueva" type="date" required data-futura>
+          <div class="msg-err">Elige una nueva fecha a partir de hoy, distinta a la reservada.</div></div>
+        <div class="campo"><label for="r-mot">Motivo del cambio <span class="opc">(opcional)</span></label>
+          <textarea id="r-mot" name="motivo" maxlength="300"></textarea></div>
+        <div class="aviso"><svg class="i"><use href="#i-info"/></svg><span>El cambio de fecha está sujeto a disponibilidad y confirmación del club.</span></div>
+        <button class="btn btn-azul" type="submit" style="width:100%">Preparar solicitud</button>
+      </form>
+      <div class="listo"></div>
+    </div>
+  </div>
+</section>
+
+<section id="conoce">
+  <div class="wrap">
+    <h2 class="titulo">Conoce el Club Laguna Azul</h2>
+    <p class="sub">Un espacio para desconectarte de la rutina y compartir momentos especiales con tu familia.</p>
+    <div class="foto-grande"><img src="img/vista-aerea.jpg" alt="Vista aérea del club: laguna artificial, jardines, caminos y piscina" loading="lazy"></div>
+    <div class="tarjetas">
+      <article class="tarjeta">
+        <img src="img/piscina.jpg" alt="Piscina temperada del club" loading="lazy" style="object-position:55% 60%">
+        <div class="txt"><h4>Piscina temperada</h4><p>El espacio acuático para disfrutar.</p></div>
+      </article>
+      <article class="tarjeta">
+        <img src="img/vista-aerea.jpg" alt="Laguna artificial rodeada de jardines" loading="lazy" style="object-position:30% 30%">
+        <div class="txt"><h4>Laguna artificial</h4><p>Para contemplar y relajarse.</p><span class="tag">Prohibido nadar o ingresar</span></div>
+      </article>
+      <article class="tarjeta">
+        <div class="ilus" style="background:#fcf0d4;color:#b9861c"><svg class="i"><use href="#i-parrilla"/></svg></div>
+        <div class="txt"><h4>Zonas de parrilla</h4><p>Prepara tu propia comida.</p></div>
+      </article>
+      <article class="tarjeta">
+        <div class="ilus" style="background:#dff2f4;color:var(--turquesa)"><svg class="i"><use href="#i-juego"/></svg></div>
+        <div class="txt"><h4>Juegos para niños</h4><p>Diversión para los más pequeños.</p></div>
+      </article>
+      <article class="tarjeta">
+        <div class="ilus" style="background:#e6f0de;color:var(--verde)"><svg class="i"><use href="#i-arbol"/></svg></div>
+        <div class="txt"><h4>Áreas verdes</h4><p>Jardines y espacios compartidos.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="antes">
+  <div class="wrap">
+    <h2 class="titulo">Antes de tu visita</h2>
+    <p class="sub">Ten en cuenta estas condiciones de ingreso.</p>
+    <div class="info">
+      <div class="dato"><svg class="i"><use href="#i-grupo"/></svg><strong>Máximo 5 personas por grupo</strong></div>
+      <div class="dato"><svg class="i"><use href="#i-reloj"/></svg><strong>Horario: 9:00 a. m. a 5:00 p. m.</strong></div>
+      <div class="dato"><svg class="i"><use href="#i-auto"/></svg><strong>Se requiere movilidad propia</strong></div>
+      <div class="dato"><svg class="i"><use href="#i-cesta"/></svg><strong>Lleva tus alimentos y bebidas</strong></div>
+      <div class="dato"><svg class="i"><use href="#i-tienda"/></svg><strong>No hay restaurante ni tiendas</strong></div>
+      <div class="dato"><svg class="i"><use href="#i-chat"/></svg><strong>Coordina tu visita con anticipación</strong></div>
+      <div class="dato" style="grid-column:1/-1"><svg class="i"><use href="#i-ok"/></svg><strong>La confirmación depende de la disponibilidad</strong></div>
+    </div>
+
+    <div class="cuidemos">
+      <header><svg class="i"><use href="#i-escudo"/></svg><h3>Cuidemos juntos nuestros espacios</h3></header>
+      <div class="prohibido">
+        <span class="no"><svg class="i"><use href="#i-noalc"/></svg></span>
+        <strong>Está prohibido ingresar o consumir bebidas alcohólicas dentro de la piscina.</strong>
+      </div>
+      <ul class="reglas">
+        <li><svg class="i"><use href="#i-vaso"/></svg><span>No se permite ingresar a la piscina con vasos, botellas ni envases de vidrio.</span></li>
+        <li><svg class="i"><use href="#i-ola"/></svg><span>La laguna es solo contemplativa: no se permite nadar, bañarse ni ingresar en ella.</span></li>
+        <li><svg class="i"><use href="#i-nino"/></svg><span>Los menores de edad deben estar siempre bajo la supervisión de un adulto responsable.</span></li>
+        <li><svg class="i"><use href="#i-escudo"/></svg><span>Respeta las indicaciones de seguridad y las normas del club.</span></li>
+        <li><svg class="i"><use href="#i-basura"/></svg><span>Mantén limpias las instalaciones y deposita los residuos en su lugar.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="ubicacion">
+  <div class="wrap">
+    <h2 class="titulo">Ubicación</h2>
+    <p class="sub">A las afueras de Trujillo, por la Panamericana Sur.</p>
+    <div class="mapa">
+      <div class="ruta" aria-label="Referencia de ruta">
+        <span class="p">Trujillo</span><span class="linea"></span>
+        <span class="p">SENASA</span><span class="linea"></span>
+        <span class="p dest">KM 553</span>
+      </div>
+      <div class="dir"><svg class="i"><use href="#i-pin"/></svg>
+        <div><strong>Panamericana Sur KM 553, pasando SENASA</strong><br>Trujillo, Perú</div></div>
+    </div>
+    <a class="btn btn-linea" id="btn-mapa" href="#" target="_blank" rel="noopener" style="width:100%"><svg class="i"><use href="#i-nav"/></svg>Cómo llegar</a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="priv"><svg class="i"><use href="#i-candado"/></svg><span>Tus datos se utilizarán únicamente para gestionar tu consulta y coordinar tu visita al Club Laguna Azul.</span></div>
+    <p class="cierre"><b>CLUB LAGUNA AZUL:</b> un día diferente, momentos para compartir en familia.</p>
+    <p class="tel">WhatsApp: +51 980 543 038</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // ===== CONFIGURACIÓN =====
+  var WHATSAPP_CLUB = "51980543038";
+  // Reemplazar por el enlace oficial de Google Maps cuando esté disponible.
+  // Mientras tanto se usa una búsqueda de la dirección (sin coordenadas inventadas).
+  var MAPS_URL = "https://maps.app.goo.gl/cN4FnyyKuhbxEfLHA";
+  var DIRECCION = "Panamericana Sur KM 553, pasando SENASA, Trujillo, Perú";
+
+  document.getElementById("btn-mapa").href = MAPS_URL ||
+    "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(DIRECCION);
+
+  // Fecha mínima = hoy (hora local)
+  var d = new Date();
+  var hoy = d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+  document.querySelectorAll("[data-futura]").forEach(function(i){ i.min = hoy; });
+
+  var menu = document.getElementById("menu");
+  var panels = document.querySelectorAll(".panel");
+
+  function mostrar(id){
+    menu.style.display = id ? "none" : "";
+    panels.forEach(function(p){ p.classList.toggle("activo", p.id === "p-" + id); });
+    document.getElementById("planifica").scrollIntoView({behavior:"smooth", block:"start"});
+  }
+  document.querySelectorAll("[data-abrir]").forEach(function(b){
+    b.addEventListener("click", function(){ mostrar(b.dataset.abrir); });
+  });
+  document.querySelectorAll("[data-volver]").forEach(function(b){
+    b.addEventListener("click", function(){ reiniciar(b.closest(".panel")); mostrar(null); });
+  });
+  function reiniciar(panel){
+    var f = panel.querySelector("form"), l = panel.querySelector(".listo");
+    f.style.display = ""; l.classList.remove("activo"); l.innerHTML = "";
+  }
+
+  function fechaLarga(v){
+    if(!v) return "";
+    var p = v.split("-"), dt = new Date(+p[0], +p[1]-1, +p[2]);
+    var s = dt.toLocaleDateString("es-PE",{weekday:"long", day:"numeric", month:"long", year:"numeric"});
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+  function soloDigitos(v){ return (v||"").replace(/\D/g,""); }
+  function telValido(v){
+    var n = soloDigitos(v);
+    if(n.length === 11 && n.indexOf("51") === 0) n = n.slice(2);
+    return /^9\d{8}$/.test(n);
+  }
+  function marcar(el, malo){ el.closest(".campo").classList.toggle("error", malo); return malo; }
+
+  function validar(f){
+    var errores = 0, primero = null;
+    f.querySelectorAll("input[required],select[required],textarea[required]").forEach(function(el){
+      if(el.type === "radio") return;
+      var v = el.value.trim(), malo = !v;
+      if(!malo && el.type === "tel") malo = !telValido(v);
+      if(!malo && el.name === "nombre") malo = v.length < 3;
+      if(!malo && el.name === "cantidad") malo = !(+v >= 1 && +v <= 5);
+      if(!malo && el.hasAttribute("data-futura")) malo = v < hoy;
+      if(!malo && el.name === "nueva") malo = v === f.fecha.value;
+      if(f.dataset.tipo === "reprogramar" && el.name === "fecha"){
+        var err = document.getElementById("r-fecha-err");
+        err.textContent = "Indica la fecha que tenías reservada.";
+        if(!malo){
+          var p = v.split("-"), inicio = new Date(+p[0], +p[1]-1, +p[2], 9, 0, 0);
+          if(inicio.getTime() - Date.now() < 24*60*60*1000){
+            malo = true;
+            err.textContent = "Faltan menos de 24 horas para tu visita (inicia 9:00 a. m.), por lo que ya no es posible reprogramarla.";
+          }
+        }
+      }
+      if(marcar(el, malo)){ errores++; primero = primero || el; }
+    });
+    var radio = f.querySelector("input[type=radio][required]");
+    if(radio){
+      var marcado = f.querySelector("input[name='"+radio.name+"']:checked");
+      if(marcar(radio, !marcado)){ errores++; primero = primero || radio; }
+    }
+    if(primero){ primero.focus({preventScroll:true}); primero.closest(".campo").scrollIntoView({behavior:"smooth", block:"center"}); }
+    return errores === 0;
+  }
+
+  function mensaje(tipo, f){
+    var v = function(n){ return f[n] ? f[n].value.trim() : ""; };
+    var L = [];
+    if(tipo === "agendar"){
+      L = ["Hola, Club Laguna Azul. Quisiera consultar disponibilidad para una visita.","",
+        "Nombre: " + v("nombre"),
+        "WhatsApp: " + v("whatsapp"),
+        "Cantidad de visitantes: " + v("cantidad"),
+        "Fecha preferida: " + fechaLarga(v("fecha")),
+        "Horario preferido: " + v("horario"),
+        "Visita familiar: " + (f.querySelector("input[name=familiar]:checked")||{}).value];
+      if(v("comentario")) L.push("Comentario: " + v("comentario"));
+      L.push("","Quedo atento(a) a su confirmación. ¡Gracias!");
+    } else if(tipo === "confirmar"){
+      L = ["Hola, Club Laguna Azul. Quisiera confirmar mi reserva.","",
+        "Nombre: " + v("nombre"),
+        "WhatsApp: " + v("whatsapp"),
+        "Fecha de visita: " + fechaLarga(v("fecha"))];
+      if(v("codigo")) L.push("Código de reserva: " + v("codigo").toUpperCase());
+      L.push("","¿Podrían confirmarme si mi visita está registrada? ¡Gracias!");
+    } else {
+      L = ["Hola, Club Laguna Azul. Quisiera reprogramar mi visita.","",
+        "Nombre: " + v("nombre"),
+        "WhatsApp: " + v("whatsapp"),
+        "Fecha reservada: " + fechaLarga(v("fecha")),
+        "Nueva fecha preferida: " + fechaLarga(v("nueva"))];
+      if(v("motivo")) L.push("Motivo: " + v("motivo"));
+      L.push("","Quedo atento(a) a la confirmación de disponibilidad. ¡Gracias!");
+    }
+    return L.join("\n");
+  }
+
+  function esc(s){ return s.replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+
+  document.querySelectorAll("form[data-tipo]").forEach(function(f){
+    f.addEventListener("input", function(e){
+      var c = e.target.closest(".campo"); if(c) c.classList.remove("error");
+    });
+    f.addEventListener("submit", function(e){
+      e.preventDefault();
+      if(!validar(f)) return;
+      var texto = mensaje(f.dataset.tipo, f);
+      var url = "https://wa.me/" + WHATSAPP_CLUB + "?text=" + encodeURIComponent(texto);
+      var listo = f.parentNode.querySelector(".listo");
+      listo.innerHTML =
+        '<div class="check"><svg class="i"><use href="#i-check"/></svg></div>' +
+        '<h3>Tu solicitud está lista</h3>' +
+        '<p>Continúa en WhatsApp para enviarla.</p>' +
+        '<div class="resumen">' + esc(texto) + '</div>' +
+        '<a class="btn btn-wa" href="' + url + '" target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>Continuar en WhatsApp</a>' +
+        '<button type="button" class="btn btn-linea" data-editar>Corregir datos</button>' +
+        '<p class="nota">Abrir WhatsApp no confirma la reserva. El personal del club te responderá para confirmar la disponibilidad.</p>';
+      f.style.display = "none";
+      listo.classList.add("activo");
+      listo.querySelector("[data-editar]").addEventListener("click", function(){
+        f.style.display = ""; listo.classList.remove("activo"); listo.innerHTML = "";
+      });
+      document.getElementById("planifica").scrollIntoView({behavior:"smooth", block:"start"});
+    });
+  });
+})();
+</script>
+</body>
+</html>
