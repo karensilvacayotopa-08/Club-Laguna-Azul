@@ -7,9 +7,7 @@ Página web móvil para agendar, confirmar o reprogramar visitas al **Club Lagun
 ## Contenido
 
 ```
-index.html          Página principal (HTML, CSS y JavaScript en un solo archivo)
-img/piscina.jpg     Foto de la piscina
-img/vista-aerea.jpg Vista aérea del club
+index.html          Página principal (HTML, CSS, JavaScript y fotos incluidas en un solo archivo)
 ```
 
 ## Funciones
